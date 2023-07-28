@@ -60,9 +60,7 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H<br/>")
-        VER=$(grep -E "='R.+" ./package/lean/default-settings/files/zzz-default-settings | cut -f2 -d"'")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
-        echo "VER=$VER" >> $GITHUB_ENV
 
     - name: Cache
       uses: klever1988/cachewrtbuild@main
@@ -177,7 +175,6 @@ jobs:
         cat >> .config <<EOF
         CONFIG_PACKAGE_luci-theme-argon=y
         CONFIG_PACKAGE_luci-app-argon-config=y
-        CONFIG_PACKAGE_luci-theme-design=y
         EOF
 
         # 常用软件包:
@@ -281,7 +278,6 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: ${{ env.FIRMWARE }}/*
         body: |
-          - 版本号：${{ env.VER }}
           - 默认IP：192.168.10.1
           - 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/immortalwrt/immortalwrt)更新记录】
