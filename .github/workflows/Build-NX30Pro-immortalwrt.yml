@@ -22,8 +22,8 @@ on:
     types: [started]
     
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/padavanonly/immortalwrtARM
+  REPO_BRANCH: mt7981
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -135,8 +135,8 @@ jobs:
         # 编译NX30Pro固件:
         cat >> .config <<EOF
         CONFIG_TARGET_mediatek=y
-        CONFIG_TARGET_mediatek_filogic=y
-        CONFIG_TARGET_mediatek_filogic_DEVICE_h3c_magic-nx30-pro=y
+        CONFIG_TARGET_mediatek_mt7981=y
+        CONFIG_TARGET_mediatek_mt7981_DEVICE_h3c_nx30pro=y
         EOF
 
         # IPv6支持:
@@ -155,11 +155,9 @@ jobs:
         CONFIG_PACKAGE_luci-app-autoreboot=y
         CONFIG_PACKAGE_luci-app-ddns=y
         CONFIG_PACKAGE_luci-app-nlbwmon=y
-        CONFIG_PACKAGE_luci-app-firewall4=y
         CONFIG_PACKAGE_luci-app-ssr-plus=y
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
         CONFIG_PACKAGE_luci-app-serverchan=y
-        CONFIG_PACKAGE_luci-app-pptp-server=y
         CONFIG_PACKAGE_luci-app-smartdns=y
         CONFIG_PACKAGE_luci-app-ttyd=y
         CONFIG_PACKAGE_luci-app-webadmin=y
@@ -178,8 +176,9 @@ jobs:
 
         # 常用软件包:
         cat >> .config <<EOF
-        CONFIG_PACKAGE_autocore=y
+        CONFIG_PACKAGE_autocore-arm=y
         CONFIG_PACKAGE_default-settings-chn=y
+        CONFIG_PACKAGE_luci-app-turboacc-mtk=y
         # CONFIG_DEFAULT_coremark is not set
         # CONFIG_PACKAGE_samba4-libs is not set
         # CONFIG_PACKAGE_samba4-server is not set
