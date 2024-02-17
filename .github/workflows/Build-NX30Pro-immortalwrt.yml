@@ -133,8 +133,8 @@ jobs:
         # 编译NX30Pro固件:
         cat >> .config <<EOF
         CONFIG_TARGET_mediatek=y
-        CONFIG_TARGET_mediatek_mt7981=y
-        CONFIG_TARGET_mediatek_mt7981_DEVICE_h3c_nx30pro=y
+        CONFIG_TARGET_mediatek_filogic=y
+        CONFIG_TARGET_mediatek_filogic_DEVICE_h3c_magic-nx30-pro=y
         EOF
 
         # IPv6支持:
