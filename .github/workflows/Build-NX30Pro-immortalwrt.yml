@@ -72,16 +72,15 @@ jobs:
         SCKEY: ${{ secrets.ACTIONS_TRIGGER_PAT }}
       run: |
         cd openwrt/package
-        git clone --depth 1 https://github.com/sbwml/luci-app-alist
-        git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot
-        git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config
-        svn export https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-adguardhome
+        git clone --depth 1 https://github.com/sbwml/luci-app-alist package/luci-app-alist
+        git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
+        git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
+        git clone --depth 1 https://github.com/chenmozhijin/luci-app-adguardhome package/luci-app-adguardhome
 
     - name: File Patch Before
       run: |
         cd openwrt
         sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-        chmod 755 ./package/luci-app-adguardhome/root/etc/init.d/AdGuardHome
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
