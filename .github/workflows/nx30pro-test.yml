@@ -247,7 +247,7 @@ jobs:
         name: R${{ steps.organize.outputs.release_tag }} for NX30Pro Mini
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ steps.organize.outputs.release_tag }} Mini
+        tag: ${{ steps.organize.outputs.release_tag }}Mini
         commit: main
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: ${{ env.FIRMWARE }}/*
