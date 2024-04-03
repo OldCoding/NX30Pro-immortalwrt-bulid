@@ -91,6 +91,7 @@ jobs:
         cd openwrt
         rm -rf ./feeds/packages/lang/golang
         git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+        curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
 
     - name: Generate configuration file
       run: |
