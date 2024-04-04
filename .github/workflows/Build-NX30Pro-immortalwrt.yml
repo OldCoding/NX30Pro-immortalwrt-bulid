@@ -31,7 +31,7 @@ env:
 
 jobs:
   build:
-    runs-on: Ubuntu-20.04
+    runs-on: Ubuntu-22.04
 #     if: github.event.repository.owner.id == github.event.sender.id
     
     steps:
@@ -43,12 +43,11 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt update
-        sudo -E apt -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
         sudo -E apt-get -qq install libfuse-dev
-        sudo -E apt -y autoremove --purge
-        sudo -E systemctl daemon-reload
-        sudo -E apt clean
         sudo timedatectl set-timezone "$TZ"
         sudo chmod 777 /mnt
 
@@ -76,6 +75,7 @@ jobs:
         git clone --depth 1 https://github.com/fw876/helloworld package/helloworld
         git clone --depth 1 https://github.com/sbwml/luci-app-alist package/luci-app-alist
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
+        git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
         git clone --depth 1 https://github.com/chenmozhijin/luci-app-adguardhome package/luci-app-adguardhome
 
@@ -90,9 +90,11 @@ jobs:
     - name: File Patch After
       run: |
         cd openwrt
-        rm -rf ./feeds/packages/lang/golang
-        git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+        #rm -rf ./feeds/packages/lang/golang
+        #git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
         curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
+        sed -i "s|services|system|g" feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+        sed -i "s|services|network|g" feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
 
     - name: Generate configuration file
       run: |
@@ -163,6 +165,7 @@ jobs:
         CONFIG_PACKAGE_luci-app-ttyd=y
         CONFIG_PACKAGE_luci-app-webadmin=y
         CONFIG_PACKAGE_luci-app-ramfree=y
+        CONFIG_PACKAGE_luci-app-turboacc=y
         CONFIG_PACKAGE_luci-app-upnp=y
         CONFIG_PACKAGE_luci-app-vlmcsd=y
         CONFIG_PACKAGE_luci-app-zerotier=y
