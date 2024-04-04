@@ -154,6 +154,7 @@ jobs:
         # LuCI插件选择:
         cat >> .config <<EOF
         CONFIG_PACKAGE_luci-app-alist=y
+        CONFIG_PACKAGE_luci-app-adguardhome=y
         CONFIG_PACKAGE_luci-app-passwall=y
         CONFIG_PACKAGE_luci-app-autoreboot=y
         CONFIG_PACKAGE_luci-app-ddns=y
@@ -182,13 +183,14 @@ jobs:
         cat >> .config <<EOF
         CONFIG_PACKAGE_autocore-arm=y
         CONFIG_PACKAGE_default-settings-chn=y
-        CONFIG_PACKAGE_luci-app-turboacc-mtk=y
+        CONFIG_PACKAGE_iptables-mod-socket=y
+        CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+        CONFIG_PACKAGE_iptables-mod-iprange=y
         # CONFIG_DEFAULT_coremark is not set
         # CONFIG_PACKAGE_samba4-libs is not set
         # CONFIG_PACKAGE_samba4-server is not set
         # CONFIG_PACKAGE_odhcpd is not set
         # CONFIG_luci-app-samba is net set
-        # CONFIG_PACKAGE_luci-app-unblockmusic is net set
         EOF
 
         # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
